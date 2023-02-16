@@ -20,65 +20,73 @@ namespace Database
         public FormRegister()
         {
             InitializeComponent();
+            //Add dll
+            var path = Directory.GetCurrentDirectory();
+            for (int i = 0; i < 2; i++)
+            {
+                path = path.Remove(path.LastIndexOf('\\'));
+            }
+            File.Copy(path + @"\dll\SQLite.Interop.dll", Directory.GetCurrentDirectory()+ @"\SQLite.Interop.dll");
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
             #region SQL Server CE
 
-            string dataBase = Application.StartupPath + "DBSQLServer.sdf";
-            string strConnection = @"DataSource = " + dataBase + "; Password = 'admin'";
+            //string dataBase = Application.StartupPath + "DBSQLServer.sdf";
+            //string strConnection = @"DataSource = " + dataBase + "; Password = 'admin'";
 
-            SqlCeEngine db = new SqlCeEngine(strConnection);
-
-            if (!File.Exists(dataBase))
-            {
-                db.CreateDatabase();
-            }
-            db.Dispose();
-
-            SqlCeConnection connection = new SqlCeConnection(strConnection);
-            //connection.ConnectionString = strConnection;
-
-            try
-            {
-                connection.Open();
-                labelResult.Text = "Database connected! [SQL Server CE]";
-
-            }
-            catch (Exception error)
-            {
-                labelResult.Text = "ERROR connect failed! [SQL Server CE]\n" + error;
-
-            }
-            finally { connection.Close(); }
-            #endregion
-
-            #region SQLite
-
-            //string dataBase = Application.StartupPath + "DBSQLite.db";
-            //string strConnection = @"Data Source = " + dataBase + "; Version = 3";
-
+            //SqlCeEngine db = new SqlCeEngine(strConnection);
 
             //if (!File.Exists(dataBase))
             //{
-            //    SQLiteConnection.CreateFile(dataBase);
+            //    db.CreateDatabase();
             //}
+            //db.Dispose();
 
-            //SQLiteConnection connection = new SQLiteConnection(strConnection);
+            //SqlCeConnection connection = new SqlCeConnection(strConnection);
+            ////connection.ConnectionString = strConnection;
 
             //try
             //{
             //    connection.Open();
-            //    labelResult.Text = "Database connected! [SQLite]";
+            //    labelResult.Text = "Database connected! [SQL Server CE]";
 
             //}
             //catch (Exception error)
             //{
-            //    labelResult.Text = "ERROR connect failed! [SQLite]\n" + error;
+            //    labelResult.Text = "ERROR connect failed! [SQL Server CE]\n" + error;
 
             //}
             //finally { connection.Close(); }
+            #endregion
+
+            #region SQLite
+
+            string dataBase = Application.StartupPath + "DBSQLite.db";
+            string strConnection = @"Data Source = " + dataBase + "; Version = 3";
+            
+
+
+            if (!File.Exists(dataBase))
+            {
+                SQLiteConnection.CreateFile(dataBase);
+            }
+
+            SQLiteConnection connection = new SQLiteConnection(strConnection);
+
+            try
+            {
+                connection.Open();
+                labelResult.Text = "Database connected! [SQLite]";
+
+            }
+            catch (Exception error)
+            {
+                labelResult.Text = "ERROR connect failed! [SQLite]\n" + error;
+
+            }
+            finally { connection.Close(); }
 
 
             #endregion
