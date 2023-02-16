@@ -20,8 +20,8 @@ namespace Database
         public FormRegister()
         {
             InitializeComponent();
-            //Add dll
 
+            //Add Interop DLL
             var path = Path(Directory.GetCurrentDirectory());
             if (!(File.Exists(Directory.GetCurrentDirectory() + @"\SQLite.Interop.dll")))
             {
@@ -42,60 +42,60 @@ namespace Database
         {
             #region SQL Server CE
 
-            //string dataBase = Application.StartupPath + "DBSQLServer.sdf";
-            //string strConnection = @"DataSource = " + dataBase + "; Password = 'admin'";
+            string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLServer.sdf";
+            string strConnection = @"DataSource = " + dataBase + "; Password = 'admin'";
 
-            //SqlCeEngine db = new SqlCeEngine(strConnection);
-
-            //if (!File.Exists(dataBase))
-            //{
-            //    db.CreateDatabase();
-            //}
-            //db.Dispose();
-
-            //SqlCeConnection connection = new SqlCeConnection(strConnection);
-            ////connection.ConnectionString = strConnection;
-
-            //try
-            //{
-            //    connection.Open();
-            //    labelResult.Text = "Database connected! [SQL Server CE]";
-
-            //}
-            //catch (Exception error)
-            //{
-            //    labelResult.Text = "ERROR connect failed! [SQL Server CE]\n" + error;
-
-            //}
-            //finally { connection.Close(); }
-            #endregion
-
-            #region SQLite
-
-            string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLite.db";
-            string strConnection = @"Data Source = " + dataBase + "; Version = 3";
-            
-
+            SqlCeEngine db = new SqlCeEngine(strConnection);
 
             if (!File.Exists(dataBase))
             {
-                SQLiteConnection.CreateFile(dataBase);
+                db.CreateDatabase();
             }
+            db.Dispose();
 
-            SQLiteConnection connection = new SQLiteConnection(strConnection);
+            SqlCeConnection connection = new SqlCeConnection(strConnection);
+            //connection.ConnectionString = strConnection;
 
             try
             {
                 connection.Open();
-                labelResult.Text = "Database connected! [SQLite]";
+                labelResult.Text = "Database connected! [SQL Server CE]";
 
             }
             catch (Exception error)
             {
-                labelResult.Text = "ERROR connect failed! [SQLite]\n" + error;
+                labelResult.Text = "ERROR connect failed! [SQL Server CE]\n" + error;
 
             }
             finally { connection.Close(); }
+            #endregion
+
+            #region SQLite
+
+            //string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLite.db";
+            //string strConnection = @"Data Source = " + dataBase + "; Version = 3";
+            
+
+
+            //if (!File.Exists(dataBase))
+            //{
+            //    SQLiteConnection.CreateFile(dataBase);
+            //}
+
+            //SQLiteConnection connection = new SQLiteConnection(strConnection);
+
+            //try
+            //{
+            //    connection.Open();
+            //    labelResult.Text = "Database connected! [SQLite]";
+
+            //}
+            //catch (Exception error)
+            //{
+            //    labelResult.Text = "ERROR connect failed! [SQLite]\n" + error;
+
+            //}
+            //finally { connection.Close(); }
 
 
             #endregion
@@ -137,55 +137,55 @@ namespace Database
         private void btnCreate_Click(object sender, EventArgs e)
         {
             #region SQLServer
-            //string dataBase = Application.StartupPath + "DBSQLServer.sdf";
-            //string strConnection = @"DataSource = " + dataBase + "; Password = 'admin'";
+            string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLServer.sdf";
+            string strConnection = @"DataSource = " + dataBase + "; Password = 'admin'";
 
-            //SqlCeConnection connection = new SqlCeConnection(strConnection);
-            //try
-            //{
-            //    connection.Open();
-            //    SqlCeCommand command = new SqlCeCommand();
-            //    command.Connection = connection;
-            //    command.CommandText = "CREATE TABLE people (id INT NOT NULL PRIMARY KEY, name NVARCHAR(50), email NVARCHAR(50))";
-            //    command.ExecuteNonQuery();
-
-            //    labelResult.Text = "Table CREATED successfully! [SQL Server CE]";
-            //    command.Dispose();
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    labelResult.Text = "Error!\n" + ex;
-
-            //}
-            //finally { connection.Close(); }
-            #endregion
-
-            #region SQLite
-
-            string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLite.db";
-            string strConnection = @"Data Source = " + dataBase + "; Version = 3";
-
-            SQLiteConnection connection = new SQLiteConnection(strConnection);
-
+            SqlCeConnection connection = new SqlCeConnection(strConnection);
             try
             {
                 connection.Open();
-                SQLiteCommand command = new SQLiteCommand();
+                SqlCeCommand command = new SqlCeCommand();
                 command.Connection = connection;
                 command.CommandText = "CREATE TABLE people (id INT NOT NULL PRIMARY KEY, name NVARCHAR(50), email NVARCHAR(50))";
                 command.ExecuteNonQuery();
 
-                labelResult.Text = "Table CREATED successfully! [SQLite]";
+                labelResult.Text = "Table CREATED successfully! [SQL Server CE]";
                 command.Dispose();
 
             }
             catch (Exception ex)
             {
-                labelResult.Text = "Error! " + ex;
+                labelResult.Text = "Error!\n" + ex;
 
             }
             finally { connection.Close(); }
+            #endregion
+
+            #region SQLite
+
+            //string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLite.db";
+            //string strConnection = @"Data Source = " + dataBase + "; Version = 3";
+
+            //SQLiteConnection connection = new SQLiteConnection(strConnection);
+
+            //try
+            //{
+            //    connection.Open();
+            //    SQLiteCommand command = new SQLiteCommand();
+            //    command.Connection = connection;
+            //    command.CommandText = "CREATE TABLE people (id INT NOT NULL PRIMARY KEY, name NVARCHAR(50), email NVARCHAR(50))";
+            //    command.ExecuteNonQuery();
+
+            //    labelResult.Text = "Table CREATED successfully! [SQLite]";
+            //    command.Dispose();
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    labelResult.Text = "Error! " + ex;
+
+            //}
+            //finally { connection.Close(); }
 
             #endregion
 
@@ -220,47 +220,14 @@ namespace Database
         {
             #region SQLServer
 
-            //string dataBase = Application.StartupPath + "DBSQLServer.sdf"; //Local
-            //string strConnection = @"DataSource = " + dataBase + "; Password = 'admin'"; //Parametros
+            string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLServer.sdf";
+            string strConnection = @"DataSource = " + dataBase + "; Password = 'admin'";
 
-            //SqlCeConnection connection = new SqlCeConnection(strConnection);
-            //try
-            //{
-            //    connection.Open();
-            //    SqlCeCommand command = new SqlCeCommand();
-            //    command.Connection = connection;
-
-            //    int id = new Random(DateTime.Now.Millisecond).Next(0, 1000);
-            //    string name = txtName.Text;
-            //    string email = txtEmail.Text;
-
-            //    command.CommandText = $"INSERT INTO people VALUES ({id}, '{name}', '{email}')";
-            //    command.ExecuteNonQuery();
-
-            //    labelResult.Text = "Data INSERTED successfully! [SQL Server CE]";
-            //    command.Dispose();
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    labelResult.Text = ex.ToString();
-
-            //}
-            //finally { connection.Close(); txtName.Text = ""; txtEmail.Text = ""; }
-
-
-            #endregion
-
-            #region SQLite
-
-            string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLite.db";
-            string strConnection = @"Data Source = " + dataBase + "; Version = 3";
-
-            SQLiteConnection connection = new SQLiteConnection(strConnection);
+            SqlCeConnection connection = new SqlCeConnection(strConnection);
             try
             {
                 connection.Open();
-                SQLiteCommand command = new SQLiteCommand();
+                SqlCeCommand command = new SqlCeCommand();
                 command.Connection = connection;
 
                 int id = new Random(DateTime.Now.Millisecond).Next(0, 1000);
@@ -270,7 +237,7 @@ namespace Database
                 command.CommandText = $"INSERT INTO people VALUES ({id}, '{name}', '{email}')";
                 command.ExecuteNonQuery();
 
-                labelResult.Text = "Data INSERTED successfully! [SQLite]";
+                labelResult.Text = "Data INSERTED successfully! [SQL Server CE]";
                 command.Dispose();
 
             }
@@ -280,6 +247,39 @@ namespace Database
 
             }
             finally { connection.Close(); txtName.Text = ""; txtEmail.Text = ""; }
+
+
+            #endregion
+
+            #region SQLite
+
+            //string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLite.db";
+            //string strConnection = @"Data Source = " + dataBase + "; Version = 3";
+
+            //SQLiteConnection connection = new SQLiteConnection(strConnection);
+            //try
+            //{
+            //    connection.Open();
+            //    SQLiteCommand command = new SQLiteCommand();
+            //    command.Connection = connection;
+
+            //    int id = new Random(DateTime.Now.Millisecond).Next(0, 1000);
+            //    string name = txtName.Text;
+            //    string email = txtEmail.Text;
+
+            //    command.CommandText = $"INSERT INTO people VALUES ({id}, '{name}', '{email}')";
+            //    command.ExecuteNonQuery();
+
+            //    labelResult.Text = "Data INSERTED successfully! [SQLite]";
+            //    command.Dispose();
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    labelResult.Text = ex.ToString();
+
+            //}
+            //finally { connection.Close(); txtName.Text = ""; txtEmail.Text = ""; }
 
 
             #endregion
@@ -320,53 +320,13 @@ namespace Database
         {
             #region SQLServer
 
-            //list.Rows.Clear();
-            //labelResult.Text = "";
-
-            //string dataBase = Application.StartupPath + "DBSQLServer.sdf";
-            //string strConnection = @"DataSource = " + dataBase + "; Password = 'admin'";
-
-            //SqlCeConnection connection = new SqlCeConnection(strConnection);
-            //try
-            //{
-            //    string query = "SELECT * FROM people";
-
-            //    if (txtName.Text != "")
-            //    {
-            //        query = "SELECT * FROM people WHERE name LIKE '" + txtName.Text + "'";
-            //    }
-
-            //    DataTable data = new DataTable();
-            //    SqlCeDataAdapter adapter = new SqlCeDataAdapter(query, strConnection);
-
-            //    connection.Open();
-
-            //    adapter.Fill(data);
-            //    foreach (DataRow line in data.Rows)
-            //    {
-            //        list.Rows.Add(line.ItemArray);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    list.Rows.Clear();
-            //    labelResult.Text = ex.ToString();
-
-            //}
-            //finally { connection.Close(); txtName.Text = ""; txtEmail.Text = ""; }
-
-
-            #endregion
-
-            #region SQLite
-
             list.Rows.Clear();
             labelResult.Text = "";
 
-            string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLite.db";
-            string strConnection = @"Data Source = " + dataBase + "; Version = 3";
+            string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLServer.sdf";
+            string strConnection = @"DataSource = " + dataBase + "; Password = 'admin'";
 
-            SQLiteConnection connection = new SQLiteConnection(strConnection);
+            SqlCeConnection connection = new SqlCeConnection(strConnection);
             try
             {
                 string query = "SELECT * FROM people";
@@ -377,7 +337,7 @@ namespace Database
                 }
 
                 DataTable data = new DataTable();
-                SQLiteDataAdapter adapter = new SQLiteDataAdapter(query, strConnection);
+                SqlCeDataAdapter adapter = new SqlCeDataAdapter(query, strConnection);
 
                 connection.Open();
 
@@ -394,6 +354,46 @@ namespace Database
 
             }
             finally { connection.Close(); txtName.Text = ""; txtEmail.Text = ""; }
+
+
+            #endregion
+
+            #region SQLite
+
+            //list.Rows.Clear();
+            //labelResult.Text = "";
+
+            //string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLite.db";
+            //string strConnection = @"Data Source = " + dataBase + "; Version = 3";
+
+            //SQLiteConnection connection = new SQLiteConnection(strConnection);
+            //try
+            //{
+            //    string query = "SELECT * FROM people";
+
+            //    if (txtName.Text != "")
+            //    {
+            //        query = "SELECT * FROM people WHERE name LIKE '" + txtName.Text + "'";
+            //    }
+
+            //    DataTable data = new DataTable();
+            //    SQLiteDataAdapter adapter = new SQLiteDataAdapter(query, strConnection);
+
+            //    connection.Open();
+
+            //    adapter.Fill(data);
+            //    foreach (DataRow line in data.Rows)
+            //    {
+            //        list.Rows.Add(line.ItemArray);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    list.Rows.Clear();
+            //    labelResult.Text = ex.ToString();
+
+            //}
+            //finally { connection.Close(); txtName.Text = ""; txtEmail.Text = ""; }
 
             #endregion
 
@@ -441,45 +441,14 @@ namespace Database
         {
             #region SQLServer
 
-            //string dataBase = Application.StartupPath + "DBSQLServer.sdf"; //Local
-            //string strConnection = @"DataSource = " + dataBase + "; Password = 'admin'"; //Parametros
+            string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLServer.sdf";
+            string strConnection = @"DataSource = " + dataBase + "; Password = 'admin'"; //Parametros
 
-            //SqlCeConnection connection = new SqlCeConnection(strConnection);
-            //try
-            //{
-            //    connection.Open();
-            //    SqlCeCommand command = new SqlCeCommand();
-            //    command.Connection = connection;
-
-            //    int id = (int)list.SelectedRows[0].Cells[0].Value;
-
-            //    command.CommandText = $"DELETE FROM people WHERE id='{id}'";
-            //    command.ExecuteNonQuery();
-
-            //    labelResult.Text = "Data DELETED successfully! [SQL Server CE]";
-            //    command.Dispose();
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    labelResult.Text = ex.ToString();
-
-            //}
-            //finally { connection.Close(); txtName.Text = ""; txtEmail.Text = ""; }
-
-
-            #endregion
-
-            #region SQLite
-
-            string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLite.db";
-            string strConnection = @"Data Source = " + dataBase + "; Version = 3";
-
-            SQLiteConnection connection = new SQLiteConnection(strConnection);
+            SqlCeConnection connection = new SqlCeConnection(strConnection);
             try
             {
                 connection.Open();
-                SQLiteCommand command = new SQLiteCommand();
+                SqlCeCommand command = new SqlCeCommand();
                 command.Connection = connection;
 
                 int id = (int)list.SelectedRows[0].Cells[0].Value;
@@ -487,7 +456,7 @@ namespace Database
                 command.CommandText = $"DELETE FROM people WHERE id='{id}'";
                 command.ExecuteNonQuery();
 
-                labelResult.Text = "Data DELETED successfully! [SQLite]";
+                labelResult.Text = "Data DELETED successfully! [SQL Server CE]";
                 command.Dispose();
 
             }
@@ -497,6 +466,37 @@ namespace Database
 
             }
             finally { connection.Close(); txtName.Text = ""; txtEmail.Text = ""; }
+
+
+            #endregion
+
+            #region SQLite
+
+            //string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLite.db";
+            //string strConnection = @"Data Source = " + dataBase + "; Version = 3";
+
+            //SQLiteConnection connection = new SQLiteConnection(strConnection);
+            //try
+            //{
+            //    connection.Open();
+            //    SQLiteCommand command = new SQLiteCommand();
+            //    command.Connection = connection;
+
+            //    int id = (int)list.SelectedRows[0].Cells[0].Value;
+
+            //    command.CommandText = $"DELETE FROM people WHERE id='{id}'";
+            //    command.ExecuteNonQuery();
+
+            //    labelResult.Text = "Data DELETED successfully! [SQLite]";
+            //    command.Dispose();
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    labelResult.Text = ex.ToString();
+
+            //}
+            //finally { connection.Close(); txtName.Text = ""; txtEmail.Text = ""; }
 
 
             #endregion
@@ -535,46 +535,14 @@ namespace Database
         {
             #region SQLServer
 
-            //string dataBase = Application.StartupPath + "DBSQLServer.sdf"; //Local
-            //string strConnection = @"DataSource = " + dataBase + "; Password = 'admin'"; //Parametros
+            string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLServer.sdf";
+            string strConnection = @"DataSource = " + dataBase + "; Password = 'admin'";
 
-            //SqlCeConnection connection = new SqlCeConnection(strConnection);
-            //try
-            //{
-            //    connection.Open();
-            //    SqlCeCommand command = new SqlCeCommand();
-            //    command.Connection = connection;
-
-            //    int id = (int)list.SelectedRows[0].Cells[0].Value;
-            //    string query = $"UPDATE people SET name='{txtName.Text}', email='{txtEmail.Text}' WHERE id LIKE '{id}'";
-
-            //    command.CommandText = query;
-            //    command.ExecuteNonQuery();
-
-            //    labelResult.Text = "Data UPDATED successfully! [SQL Server CE]";
-            //    command.Dispose();
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    labelResult.Text = ex.ToString();
-
-            //}
-            //finally { connection.Close(); txtName.Text = ""; txtEmail.Text = ""; }
-
-
-            #endregion
-
-            #region SQLite
-
-            string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLite.db";
-            string strConnection = @"Data Source = " + dataBase + "; Version = 3";
-
-            SQLiteConnection connection = new SQLiteConnection(strConnection);
+            SqlCeConnection connection = new SqlCeConnection(strConnection);
             try
             {
                 connection.Open();
-                SQLiteCommand command = new SQLiteCommand();
+                SqlCeCommand command = new SqlCeCommand();
                 command.Connection = connection;
 
                 int id = (int)list.SelectedRows[0].Cells[0].Value;
@@ -583,7 +551,7 @@ namespace Database
                 command.CommandText = query;
                 command.ExecuteNonQuery();
 
-                labelResult.Text = "Data UPDATED successfully! [SQLite]";
+                labelResult.Text = "Data UPDATED successfully! [SQL Server CE]";
                 command.Dispose();
 
             }
@@ -593,6 +561,38 @@ namespace Database
 
             }
             finally { connection.Close(); txtName.Text = ""; txtEmail.Text = ""; }
+
+
+            #endregion
+
+            #region SQLite
+
+            //string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLite.db";
+            //string strConnection = @"Data Source = " + dataBase + "; Version = 3";
+
+            //SQLiteConnection connection = new SQLiteConnection(strConnection);
+            //try
+            //{
+            //    connection.Open();
+            //    SQLiteCommand command = new SQLiteCommand();
+            //    command.Connection = connection;
+
+            //    int id = (int)list.SelectedRows[0].Cells[0].Value;
+            //    string query = $"UPDATE people SET name='{txtName.Text}', email='{txtEmail.Text}' WHERE id LIKE '{id}'";
+
+            //    command.CommandText = query;
+            //    command.ExecuteNonQuery();
+
+            //    labelResult.Text = "Data UPDATED successfully! [SQLite]";
+            //    command.Dispose();
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    labelResult.Text = ex.ToString();
+
+            //}
+            //finally { connection.Close(); txtName.Text = ""; txtEmail.Text = ""; }
 
 
             #endregion
