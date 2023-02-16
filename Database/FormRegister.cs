@@ -21,15 +21,21 @@ namespace Database
         {
             InitializeComponent();
             //Add dll
-            var path = Directory.GetCurrentDirectory();
-            for (int i = 0; i < 2; i++)
-            {
-                path = path.Remove(path.LastIndexOf('\\'));
-            }
+
+            var path = Path(Directory.GetCurrentDirectory());
             if (!(File.Exists(Directory.GetCurrentDirectory() + @"\SQLite.Interop.dll")))
             {
                 File.Copy(path + @"\dll\SQLite.Interop.dll", Directory.GetCurrentDirectory() + @"\SQLite.Interop.dll");
             }
+        }
+
+        public string Path(string path)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                path = path.Remove(path.LastIndexOf('\\'));
+            }
+            return path;
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
@@ -66,7 +72,7 @@ namespace Database
 
             #region SQLite
 
-            string dataBase = Application.StartupPath + "DBSQLite.db";
+            string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLite.db";
             string strConnection = @"Data Source = " + dataBase + "; Version = 3";
             
 
@@ -157,7 +163,7 @@ namespace Database
 
             #region SQLite
 
-            string dataBase = Application.StartupPath + "DBSQLite.db";
+            string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLite.db";
             string strConnection = @"Data Source = " + dataBase + "; Version = 3";
 
             SQLiteConnection connection = new SQLiteConnection(strConnection);
@@ -247,7 +253,7 @@ namespace Database
 
             #region SQLite
 
-            string dataBase = Application.StartupPath + "DBSQLite.db";
+            string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLite.db";
             string strConnection = @"Data Source = " + dataBase + "; Version = 3";
 
             SQLiteConnection connection = new SQLiteConnection(strConnection);
@@ -357,7 +363,7 @@ namespace Database
             list.Rows.Clear();
             labelResult.Text = "";
 
-            string dataBase = Application.StartupPath + "DBSQLite.db";
+            string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLite.db";
             string strConnection = @"Data Source = " + dataBase + "; Version = 3";
 
             SQLiteConnection connection = new SQLiteConnection(strConnection);
@@ -466,7 +472,7 @@ namespace Database
 
             #region SQLite
 
-            string dataBase = Application.StartupPath + "DBSQLite.db";
+            string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLite.db";
             string strConnection = @"Data Source = " + dataBase + "; Version = 3";
 
             SQLiteConnection connection = new SQLiteConnection(strConnection);
@@ -561,7 +567,7 @@ namespace Database
 
             #region SQLite
 
-            string dataBase = Application.StartupPath + "DBSQLite.db";
+            string dataBase = Path(Directory.GetCurrentDirectory()) + @"\db\DBSQLite.db";
             string strConnection = @"Data Source = " + dataBase + "; Version = 3";
 
             SQLiteConnection connection = new SQLiteConnection(strConnection);
